@@ -13,14 +13,14 @@
 
           <div class="flex items-center space-x-4">
             <span class="text-sm text-gray-700">
-              欢迎，{{ authStore.user?.name }}
+              欢迎，{{ userStore.currentUser?.name }}
               <span class="text-xs text-gray-500">({{ roleText }})</span>
             </span>
             <button
               @click="handleLogout"
               class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
             >
-              <ArrowRightOnRectangleIcon class="h-5 w-5" />
+              <ArrowRightStartOnRectangleIcon class="h-5 w-5" />
             </button>
           </div>
         </div>
@@ -73,20 +73,20 @@ import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import {
   ChartBarIcon,
-  ArrowRightOnRectangleIcon,
+  ArrowRightStartOnRectangleIcon,
   PlusCircleIcon,
   DocumentTextIcon,
   ChartPieIcon,
   CogIcon,
   HomeIcon
 } from '@heroicons/vue/24/outline'
-import { useAuthStore } from '@/stores/auth'
+import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
-const authStore = useAuthStore()
+const userStore = useUserStore()
 
 const roleText = computed(() => {
-  return authStore.user?.role === 'admin' ? '管理员' : '填报员'
+  return userStore.currentUser?.role === 'admin' ? '管理员' : '填报员'
 })
 
 const navigationItems = computed(() => {
@@ -98,7 +98,7 @@ const navigationItems = computed(() => {
     }
   ]
 
-  if (authStore.isAdmin) {
+  if (userStore.isAdmin) {
     return [
       ...baseItems,
       {
@@ -135,7 +135,7 @@ const navigationItems = computed(() => {
 })
 
 function handleLogout() {
-  authStore.logout()
+  userStore.logout()
   router.push('/login')
 }
 </script>

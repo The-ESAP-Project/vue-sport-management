@@ -150,12 +150,12 @@ import {
   ChevronRightIcon,
   UserIcon
 } from '@heroicons/vue/24/outline'
-import { useAuthStore } from '@/stores/auth'
+import { useUserStore } from '@/stores/user'
 
-const authStore = useAuthStore()
+const userStore = useUserStore()
 
 const quickActions = computed(() => {
-  if (authStore.isAdmin) {
+  if (userStore.isAdmin) {
     return [
       {
         name: '发布收集任务',

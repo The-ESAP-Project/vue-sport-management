@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import NotificationContainer from './components/notification/NotificationContainer.vue'
 </script>
 
 <template>
-  <RouterView />
+  <div class="min-h-screen flex flex-col">
+    <main class="flex-1">
+      <RouterView />
+    </main>
+    <!-- 通知容器 -->
+    <NotificationContainer />
+  </div>
 </template>
-
-<style scoped>
-/* 应用全局样式在 styles.css 中定义 */
-</style>

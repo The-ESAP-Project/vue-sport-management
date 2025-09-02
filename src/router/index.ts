@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
+import { useUserStore } from '@/stores/user'
 import LoginView from '@/views/LoginView.vue'
 import AppLayout from '@/components/AppLayout.vue'
 import DashboardView from '@/views/DashboardView.vue'
@@ -61,11 +61,11 @@ const router = createRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
-  const authStore = useAuthStore()
+  const userStore = useUserStore()
 
   // 需要登录的页面
   if (to.meta.requiresAuth) {
-    if (!authStore.isAuthenticated) {
+    if (!userStore.isAuthenticated) {
       next('/login')
       return
     }
@@ -73,14 +73,14 @@ router.beforeEach((to, from, next) => {
 
   // 需要管理员权限的页面
   if (to.meta.requiresAdmin) {
-    if (!authStore.isAdmin) {
+    if (!userStore.isAdmin) {
       next('/dashboard')
       return
     }
   }
 
   // 已登录用户访问登录页面，重定向到仪表板
-  if (to.meta.requiresGuest && authStore.isAuthenticated) {
+  if (to.meta.requiresGuest && userStore.isAuthenticated) {
     next('/dashboard')
     return
   }

@@ -107,10 +107,11 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { ChartBarIcon, ExclamationTriangleIcon, ArrowPathIcon } from '@heroicons/vue/24/outline'
-import { useAuthStore } from '@/stores/auth'
+import { useUserStore } from '@/stores/user'
+import type { ApiError } from '@/services'
 
 const router = useRouter()
-const authStore = useAuthStore()
+const userStore = useUserStore()
 
 const loading = ref(false)
 const error = ref('')
@@ -130,14 +131,18 @@ async function handleLogin() {
   error.value = ''
 
   try {
-    const success = await authStore.login(form.username, form.password)
+    const success = await userStore.login({
+      username: form.username,
+      password: form.password,
+    })
+
     if (success) {
       router.push('/dashboard')
     } else {
       error.value = '用户名或密码错误'
     }
-  } catch {
-    error.value = '登录过程中发生错误，请重试'
+  } catch (err: unknown) {
+    error.value = err instanceof Object ? (err as ApiError).message : '登录失败，请检查用户名和密码'
   } finally {
     loading.value = false
   }

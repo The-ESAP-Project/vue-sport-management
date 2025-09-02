@@ -10,14 +10,14 @@ export interface LoginRequest {
 
 // 登录响应数据
 export interface LoginResponseData {
-  access_token: string
+  accessToken: string
   expires_in: number
   user: User
 }
 
 // 刷新令牌响应数据
 export interface RefreshTokenResponseData {
-  access_token: string
+  accessToken: string
   expires_in: number
 }
 
@@ -26,13 +26,13 @@ export interface UserInfoResponseData {
   user: User
 }
 
-// Token 验证结果接口
-export interface TokenVerificationResult {
-  isValid: boolean
-  isNetworkError: boolean
-  error?: {
-    code: number
-    message: string
-    timestamp: string
+  // Token 验证结果接口
+  export interface TokenVerificationResult {
+    isValid: boolean
+    isNetworkError: boolean
+    error?: {
+      code: number
+      message: string
+      timestamp: string
+    }
   }
-}

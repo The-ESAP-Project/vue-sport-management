@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import AuthService from '@/services/auth'
 import { useNotification } from '@/composables/useNotification'
 import type { LoginRequest } from '@/types/auth'
 import type { User } from '@/types/user'
 
 export const useUserStore = defineStore('user', () => {
+  const router = useRouter()
   // 通知系统
   const { success, info, error } = useNotification()
 
@@ -45,7 +47,7 @@ export const useUserStore = defineStore('user', () => {
 
       // 保存到本地存储
       localStorage.setItem('currentUser', JSON.stringify(loginData.user))
-      localStorage.setItem('authToken', loginData.access_token)
+      localStorage.setItem('authToken', loginData.accessToken)
       localStorage.setItem('tokenExpiresIn', loginData.expires_in.toString())
 
       // 显示登录成功通知
@@ -110,6 +112,8 @@ export const useUserStore = defineStore('user', () => {
               // 真正的认证失败（如 token 过期、无效等）
               console.warn('Token 验证失败，清除用户状态:', verificationResult.error?.message)
               await clearAuthData()
+              // 跳转到登录页面
+              router.push('/login')
             }
           }
 
@@ -170,6 +174,8 @@ export const useUserStore = defineStore('user', () => {
   const handleAuthLogout = async () => {
     currentUser.value = null
     await clearAuthData()
+    // 跳转到登录页面
+    router.push('/login')
   }
 
   // 清理函数，用于移除事件监听器

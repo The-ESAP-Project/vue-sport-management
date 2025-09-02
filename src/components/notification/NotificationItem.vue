@@ -10,7 +10,7 @@
     <div
       v-show="true"
       :class="[
-        'pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-lg',
+        'pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg',
         typeClasses,
       ]"
     >
@@ -23,7 +23,7 @@
             <p :class="['text-sm font-medium', titleColorClass]">
               {{ notification.title }}
             </p>
-            <p v-if="notification.message" class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            <p v-if="notification.message" class="mt-1 text-sm text-gray-500">
               {{ notification.message }}
             </p>
             <!-- 操作按钮 -->
@@ -46,7 +46,7 @@
           <div v-if="notification.closable" class="ml-4 flex flex-shrink-0">
             <button
               @click="$emit('close')"
-              class="inline-flex rounded-md bg-white dark:bg-gray-800 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors duration-200"
+              class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200"
             >
               <span class="sr-only">关闭</span>
               <XMarkIcon class="h-5 w-5" />
@@ -57,7 +57,7 @@
       <!-- 进度条（如果有自动关闭时间） -->
       <div
         v-if="notification.duration && notification.duration > 0"
-        class="h-1 bg-gray-200 dark:bg-gray-700"
+        class="h-1 bg-gray-200"
       >
         <div
           :class="['h-full transition-all ease-linear', progressBarColorClass]"
@@ -127,7 +127,7 @@ const iconColorClass = computed(() => {
 })
 
 const titleColorClass = computed(() => {
-  return 'text-gray-900 dark:text-white'
+  return 'text-gray-900'
 })
 
 const progressBarColorClass = computed(() => {
@@ -143,7 +143,7 @@ const progressBarColorClass = computed(() => {
 // 操作按钮样式
 const getActionButtonClass = (style?: string) => {
   const baseClass =
-    'focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800'
+    'focus:outline-none focus:ring-2 focus:ring-offset-2'
 
   switch (style) {
     case 'primary':
@@ -152,7 +152,7 @@ const getActionButtonClass = (style?: string) => {
       return `${baseClass} bg-red-600 text-white hover:bg-red-700 focus:ring-red-500`
     case 'secondary':
     default:
-      return `${baseClass} bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 focus:ring-gray-500`
+      return `${baseClass} bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500`
   }
 }
 

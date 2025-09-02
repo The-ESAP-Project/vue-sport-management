@@ -36,10 +36,12 @@ export class AuthService {
 
   /**
    * 验证令牌有效性
+   * 通过获取用户信息来验证token是否有效
    */
   static async verifyToken(): Promise<TokenVerificationResult> {
     try {
-      await api.get<ApiResponse>('/v1/auth/verify-token')
+      // 通过获取用户信息来验证token是否有效
+      await api.get<ApiResponse<User>>('/v1/auth/me')
       return {
         isValid: true,
         isNetworkError: false,

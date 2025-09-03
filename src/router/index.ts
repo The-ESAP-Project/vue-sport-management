@@ -7,6 +7,7 @@ import PublishView from '@/views/PublishView.vue'
 import ReportView from '@/views/ReportView.vue'
 import DisplayView from '@/views/DisplayView.vue'
 import ManageView from '@/views/ManageView.vue'
+import StudentManageView from '@/views/StudentManageView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -52,6 +53,12 @@ const router = createRouter({
           path: 'manage',
           name: 'manage',
           component: ManageView,
+          meta: { requiresAdmin: true }
+        },
+        {
+          path: 'students',
+          name: 'students',
+          component: StudentManageView,
           meta: { requiresAdmin: true }
         }
       ]

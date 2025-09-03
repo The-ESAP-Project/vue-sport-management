@@ -14,16 +14,5 @@ export interface ApiErrorResponse<T = unknown> {
   timestamp: string
 }
 
-// API 分页请求参数
-export interface PaginationQuery {
-  page?: number
-  size?: number
-}
-
-// API 分页响应结构
-export interface PaginationInfo {
-  page: number
-  size: number
-  total: number
-  pages: number
-}
+// 导出分页相关类型（从 pagination.ts 导入）
+export type { PaginationQuery, PaginationInfo, PaginatedResponse } from './pagination'
